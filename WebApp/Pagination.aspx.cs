@@ -6,68 +6,77 @@ using System.Web.UI.WebControls;
 
 namespace WebApp
 {
-    public partial class WebForm3 : System.Web.UI.Page
-    {
-        string strcon = ConfigurationManager.ConnectionStrings["mycon"].ConnectionString;
+	public partial class WebForm3 : System.Web.UI.Page
+	{
+		string strcon = ConfigurationManager.ConnectionStrings["mycon"].ConnectionString;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                BindGrid();
-            }
-        }
+		protected void Page_Load(object sender, EventArgs e)
+		{
+			if (!IsPostBack)
+			{
+				BindGrid();
+			}
+		}
 
-        private void BindGrid()
-        {
-            using (SqlConnection con = new SqlConnection(strcon))
-            {
-                try
-                {
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT PersonID, Firstname, Email, City FROM Personaldata", con);
-                    SqlDataAdapter ada = new SqlDataAdapter();
-                    {
-                        cmd.Connection = con;
-                        ada.SelectCommand = cmd;
-                        DataTable dt = new DataTable();
-                        ada.Fill(dt);
+		private void BindGrid()
+		{
+			using (SqlConnection con = new SqlConnection(strcon))
+			{
+				try
+				{
+					con.Open();
+					SqlCommand cmd = new SqlCommand("SELECT PersonID, Firstname, Email, City FROM Personaldata", con);
+					SqlDataAdapter ada = new SqlDataAdapter(cmd);
+					DataTable dt = new DataTable();
+					ada.Fill(dt);
+
+	
+					Gridview1.DataSource = dt;
+					Gridview1.DataBind();
 
 
-                        Gridview1.DataSource = dt;
-                        Gridview1.DataBind();
-                    }
-                }
-                catch (Exception ex)
-                {
+					ViewState["dirstate"] = dt;
+					ViewState["sortdr"] = "Asc";
 
-                    Response.Redirect(ex.Message);
-                }
-            }
-        }
+					con.Close();
+				}
+				catch (Exception ex)
+				{
+					Response.Write("An error occurred: " + ex.Message);
+				}
+			}
+		}
 
-        protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            Gridview1.PageIndex = e.NewPageIndex;
-            BindGrid();
-        }
+		protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			Gridview1.PageIndex = e.NewPageIndex;
+			BindGrid();
+		}
 
-        protected void btnPrev_Click(object sender, EventArgs e)
-        {
-            if (Gridview1.PageIndex > 0)
-            {
-                Gridview1.PageIndex -= 1;
-                BindGrid();
-            }
-        }
+		protected void Gridview1_Sorting(object sender, GridViewSortEventArgs e)
+		{
+			DataTable dt = (DataTable)ViewState["dirstate"];
 
-        protected void btnNext_Click(object sender, EventArgs e)
-        {
-            if (Gridview1.PageIndex < Gridview1.PageCount - 1)
-            {
-                Gridview1.PageIndex += 1;
-                BindGrid();
-            }
-        }
-    }
+			if (dt != null)
+			{
+				string sortDirection = ViewState["sortdr"].ToString();
+
+				if (sortDirection == "Desc")
+				{
+					dt.DefaultView.Sort = e.SortExpression + " ASC";
+					ViewState["sortdr"] = "Asc";
+
+				}
+				else
+				{
+					dt.DefaultView.Sort = e.SortExpression + " DESC";
+					ViewState["sortdr"] = "Desc";
+				}
+
+
+				Gridview1.DataSource = dt;
+				Gridview1.DataBind();
+			}
+		}
+	}
 }

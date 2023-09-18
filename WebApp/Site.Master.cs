@@ -13,17 +13,21 @@ namespace WebApp
 		{
 			try
 			{
-		         if( Session["role"].Equals("user"))
-				{
-					Linkbutton.Visible = false;//login
-					Linkbutton1.Visible = false;//sign in
-					Linkbutton2.Visible = true;//logout
-					Linkbutton3.Visible = true;//hello user
-					Linkbutton3.Text = "Welcome  " + Session["Username"].ToString();
-				}
+
+				if (Session["role"] != null && Session["role"].ToString() == "user" && Session["Username"] != null)
+					{
+						Linkbutton.Visible = false; // login
+						Linkbutton1.Visible = false; // sign in
+						Linkbutton2.Visible = true; // logout
+						Linkbutton3.Visible = true; // hello user
+						Linkbutton3.Text = "Welcome  " + Session["Username"].ToString();
+					}
+				
+
 
 			}
 			catch { }
+		
 
 		}
 
