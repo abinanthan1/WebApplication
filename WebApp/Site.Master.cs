@@ -44,9 +44,8 @@ namespace WebApp
 		protected void Linkbutton2_Click(object sender, EventArgs e)
 		{
 			Session["Username"] = "";
-			Session["Password"] = "";
 			Session["role"] = "";
-			Session["status"] = "";
+		
 			if (Session["role"].Equals(""))
 			{
 				Linkbutton.Visible = true;//login

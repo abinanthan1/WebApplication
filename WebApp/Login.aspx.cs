@@ -35,9 +35,7 @@ namespace WebApp
 						{
 						Response.Write("<script>alert('Login Successful');</script>");
 						Session["Username"] = dr.GetValue(0).ToString();
-						Session["Password"] = dr.GetValue(1).ToString();
 						Session["role"] = "user";
-						Session["status"] = dr.GetValue(5).ToString();
 						
 					}
 					Response.Redirect("home.aspx");

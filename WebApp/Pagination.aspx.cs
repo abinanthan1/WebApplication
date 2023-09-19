@@ -14,7 +14,10 @@ namespace WebApp
 		{
 			if (!IsPostBack)
 			{
-				BindGrid();
+				
+					BindGrid();
+	
+		
 			}
 		}
 
