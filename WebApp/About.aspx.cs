@@ -11,7 +11,13 @@ namespace WebApp
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
+			if (!IsPostBack)
+			{
+				if (Session["role"]==null)
+				{
+					Response.Redirect("Login.aspx");
+				}
+			}
 		}
 	}
 }

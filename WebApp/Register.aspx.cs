@@ -80,6 +80,7 @@ namespace WebApp
 				cmd.ExecuteNonQuery();
 				con.Close();
 				Label4.Text = "Registeration successful and now login";
+			
 				Response.Redirect("Login.aspx");
 
 

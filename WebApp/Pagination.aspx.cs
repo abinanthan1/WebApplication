@@ -12,13 +12,25 @@ namespace WebApp
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (!IsPostBack)
+			try
 			{
-				
+				if (!IsPostBack)
+				{
+
 					BindGrid();
-	
-		
+					if (Session["role"] == null)
+					{
+						Response.Redirect("Login.aspx");
+					}
+					
+				}
 			}
+			catch (Exception a)
+			{
+				Response.Write
+					(a.Message);	
+			}
+			
 		}
 
 		private void BindGrid()

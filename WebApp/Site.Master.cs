@@ -52,6 +52,7 @@ namespace WebApp
 				Linkbutton1.Visible = true;//sign in
 				Linkbutton2.Visible = false;//logout
 				Linkbutton3.Visible = false;//hello user
+				Session.Clear();
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
         <div>
-                    <asp:GridView ID="Gridview1" runat="server" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="true" OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None" OnSorting="Gridview1_Sorting" style="border-top: none;">
+                    &nbsp;<asp:GridView ID="Gridview1" runat="server" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="true" OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None" OnSorting="Gridview1_Sorting" style="border-top: none;" AutoGenerateSelectButton="True" Width="445px">
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
               
                         <Columns>
